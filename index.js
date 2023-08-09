@@ -4,12 +4,17 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+const { Configuration, OpenAIApi } = require("openai");
+
+const openAIConfig = new Configuration({ apiKey: process.env.OPENAI_KEY });
+const openAI = new OpenAIApi(openAIConfig);
+
 const Controller = require("./controller/controller");
 const Router = require("./router/router");
 
 const app = express();
 
-const controller = new Controller();
+const controller = new Controller(openAI);
 const router = new Router(controller).routes();
 
 const PORT = process.env.PORT || 5000;
