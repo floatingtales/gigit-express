@@ -4,7 +4,7 @@ class Controller {
   }
 
   async getAIReply(req, res) {
-    const { name, description, chat } = req.body;
+    const { chat } = req.body;
 
     const response = await this.openAI.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -13,8 +13,6 @@ class Controller {
           role: "system",
           content: `You're an customer service assistant for a business.
           \nHere are the details of the business:
-          \nName: ${name}
-          \nDescription:${description}
           \nTone: Spartan, Conversational, less corporate jargon.`,
         },
         ...chat,
